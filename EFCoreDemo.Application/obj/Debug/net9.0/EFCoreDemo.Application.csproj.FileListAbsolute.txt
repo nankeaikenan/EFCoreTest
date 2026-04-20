@@ -1,0 +1,17 @@
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\bin\Debug\net9.0\EFCoreDemo.Application.deps.json
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\bin\Debug\net9.0\EFCoreDemo.Application.dll
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\bin\Debug\net9.0\EFCoreDemo.Application.pdb
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\bin\Debug\net9.0\EFCoreDemo.Domain.dll
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\bin\Debug\net9.0\EFCoreDemo.Infrastructure.dll
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\bin\Debug\net9.0\EFCoreDemo.Domain.pdb
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\bin\Debug\net9.0\EFCoreDemo.Infrastructure.pdb
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\EFCoreDemo.Application.csproj.AssemblyReference.cache
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\EFCoreDemo.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\EFCoreDemo.Application.AssemblyInfoInputs.cache
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\EFCoreDemo.Application.AssemblyInfo.cs
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\EFCoreDemo.Application.csproj.CoreCompileInputs.cache
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\EFCoreDe.B52CF1F5.Up2Date
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\EFCoreDemo.Application.dll
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\refint\EFCoreDemo.Application.dll
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\EFCoreDemo.Application.pdb
+C:\Users\chen\Desktop\project\.netTest\EFCoreTest\EFCoreDemo.Application\obj\Debug\net9.0\ref\EFCoreDemo.Application.dll
