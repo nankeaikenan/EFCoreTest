@@ -54,55 +54,42 @@ namespace EFCoreDemo.Application.Services
         /// 注册新用户并颁发 Token。
         /// 流程：构建用户对象 → 创建用户（密码自动哈希）→ 分配角色 → 生成双 Token → 返回
         /// </summary>
-        public async Task<AuthResponse?> RegisterAsync(RegisterRequest request)
+        public async Task<RegisterResult> RegisterAsync(RegisterRequest request)
         {
             // ── Step 1：检查邮箱是否已注册 ──────────────────────────────────
-            // FindByEmailAsync 执行一次数据库查询（通过 AspNetUsers 表的 Email 索引，效率高）
             var existingUser = await _userManager.FindByEmailAsync(request.Email);
             if (existingUser != null)
             {
-                // 返回 null，由 Controller 转化为 409 Conflict 响应
-                return null;
+                return RegisterResult.Conflict();
             }
 
             // ── Step 2：构建 ApplicationUser 对象 ───────────────────────────
             var user = new ApplicationUser
             {
-                // UserName 与 Email 保持一致，是最常见的企业实践
-                // （避免用户记两套账号名）
                 UserName = request.Email,
                 Email = request.Email,
                 FullName = request.FullName,
-                // EmailConfirmed = true 跳过邮件确认步骤（演示用）
-                // 生产环境应为 false，并通过邮件发送确认链接
                 EmailConfirmed = true,
                 CreatedAt = DateTime.UtcNow
             };
 
             // ── Step 3：创建用户 ─────────────────────────────────────────────
-            // CreateAsync 内部会：
-            //   1. 执行 PasswordOptions 规则校验（大写、数字、特殊字符等）
-            //   2. 使用 PasswordHasher 对明文密码进行 BCrypt 哈希
-            //   3. 将用户记录插入 AspNetUsers 表
+            // CreateAsync 内部执行密码策略校验（特殊字符、大写、数字等）+ BCrypt 哈希 + 写库
             var createResult = await _userManager.CreateAsync(user, request.Password);
             if (!createResult.Succeeded)
             {
-                // Identity 会返回详细错误（如密码太简单、邮箱格式错误等）
-                // 此处可记录日志，Controller 返回 400 BadRequest
-                return null;
+                var errors = createResult.Errors.Select(e => e.Description);
+                return RegisterResult.Failure(errors);
             }
 
             // ── Step 4：分配角色 ─────────────────────────────────────────────
-            // 角色校验：只允许已存在的角色（由 DataSeeder 初始化）
-            // 若请求的角色不在白名单，强制使用默认角色 "Customer"
             var validRoles = new[] { "Admin", "Customer" };
             var roleToAssign = validRoles.Contains(request.Role) ? request.Role : "Customer";
-
-            // AddToRoleAsync：向 AspNetUserRoles 表插入一条关联记录
             await _userManager.AddToRoleAsync(user, roleToAssign);
 
             // ── Step 5：生成 Token 并返回 ────────────────────────────────────
-            return await BuildAuthResponseAsync(user);
+            var authResponse = await BuildAuthResponseAsync(user);
+            return RegisterResult.Success(authResponse);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

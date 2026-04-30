@@ -26,6 +26,9 @@ namespace EFCoreDemo.Application.DTOs.Auth
         /// </summary>
         [Required(ErrorMessage = "密码不能为空")]
         [MinLength(6, ErrorMessage = "密码至少 6 位")]
+        [RegularExpression(
+            @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{6,}$",
+            ErrorMessage = "密码必须包含大写字母、小写字母、数字及特殊字符")]
         public string Password { get; set; } = string.Empty;
 
         /// <summary>

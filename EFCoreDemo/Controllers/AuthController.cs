@@ -59,17 +59,19 @@ namespace EFCoreDemo.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            // 注：[ApiController] 已自动触发模型验证，到达此处时 request 字段格式均已通过
-            var response = await _authService.RegisterAsync(request);
+            var result = await _authService.RegisterAsync(request);
 
-            if (response == null)
+            if (result.EmailAlreadyExists)
             {
-                // 返回 409 表示资源冲突（邮箱已存在），语义比 400 更精确
                 return Conflict(new { message = "该邮箱已被注册，请直接登录或使用其他邮箱。" });
             }
 
-            // 201 Created：RESTful 规范中创建资源成功的标准响应码
-            return StatusCode(StatusCodes.Status201Created, response);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { message = "注册失败，请检查输入信息。", errors = result.ValidationErrors });
+            }
+
+            return StatusCode(StatusCodes.Status201Created, result.Response);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

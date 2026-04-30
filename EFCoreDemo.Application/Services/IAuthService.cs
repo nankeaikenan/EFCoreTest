@@ -19,10 +19,11 @@ namespace EFCoreDemo.Application.Services
         /// </summary>
         /// <param name="request">包含邮箱、密码、姓名和角色的注册信息</param>
         /// <returns>
-        ///   成功时：返回含 Token 的 AuthResponse
-        ///   失败时：返回 null（调用方根据 null 判断失败并返回 400/409）
+        ///   RegisterResult.Succeeded = true：注册成功，Response 含 Token
+        ///   RegisterResult.EmailAlreadyExists = true：邮箱冲突，调用方返回 409
+        ///   RegisterResult.ValidationErrors 非空：密码等规则校验失败，调用方返回 400
         /// </returns>
-        Task<AuthResponse?> RegisterAsync(RegisterRequest request);
+        Task<RegisterResult> RegisterAsync(RegisterRequest request);
 
         /// <summary>
         /// 用户登录，验证凭据并颁发 JWT + Refresh Token。
